@@ -6,25 +6,46 @@ This project has no releases on github or any other platform that we can easily 
 
 > This project is made on Unity so if you have the Unity Editor you can build the project by yourself. 
 
-> I'm not responsible for the code that is executed since the project, even though it is open source, is uploaded to an external platform which the owner uses.
+> I'm not responsible for the code that is executed since the project, even though it is open-source, is uploaded to an external platform which the owner uses.
 
-## Screenshoot 🖌️
+> This flake for now provides artifacts (the zip) I encourage you to change to your personal download from the ItchiIO page.
+
+## 🖌️ Screenshoot 
 
 <img src="https://github.com/regalk13/digital-logic-sim-flake/blob/main/assets/screenshoot.png?raw=true" />
 
 (Running on x86 NixOs Unstable machine using Wayland)
 
-## Run the app 🚀
+## 🖥️ Installation 
 
-You can run the app using the flake like.
+To use it add the input to the relevant Nix configuration flake inputs:
+
+```nix
+inputs = {
+    digital-logic-sim.url = "github:regalk13/digital-logic-sim-flake";
+}
+```
+
+This flake just provides the package from the main repository that is `x86_64-linux` for now.
+
+If you're on NixOS and/or home-manager, you should install on your configuration. For example like this:
+
+```nix
+environment.systemPackages = [
+    inputs.digital-logic-sim.packages.x86_64-linux.default
+];
+```
+A command called `digital-logic-sim` should appear, as well as a desktop file that should show up in app launchers.
+
+## 🚀 Run the Flake 
+
+You can run the app using the Flake:
 
 ```bash
 nix run .
 ```
-Or you can directly install the override on your system using the package.nix.
 
-
-### Resources 📙
+### 📙 Resources 
 
 This override is based on existing overrides in the nixpkgs of Unity apps/games.
 
