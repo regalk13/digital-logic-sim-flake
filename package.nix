@@ -27,7 +27,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "digital-logic-sim";
-  version = "0.0.1";
+  version = "2.1.6";
 
   src = fetchzip {
     url = "https://github.com/regalk13/digital-logic-sim-flake/releases/download/${finalAttrs.version}/Digital-Logic-Sim-Linux.zip";
