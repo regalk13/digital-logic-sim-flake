@@ -10,6 +10,9 @@ This project has no releases on github or any other platform that we can easily 
 
 ## Screenshoot 🖌️
 
+<img src="https://github.com/regalk13/digital-logic-sim-flake/blob/main/assets/screenshoot.png?raw=true" />
+
+(Running on x86 NixOs Unstable machine using Wayland)
 
 ## Run the app 🚀
 
