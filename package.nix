@@ -23,18 +23,17 @@
   udev,
   vulkan-loader,
   wayland,
+  version, url, hash   
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "digital-logic-sim";
-  version = "2.1.6";
+  pname   = "digital-logic-sim";
+  inherit version;
 
   src = fetchzip {
-    url = "https://github.com/regalk13/digital-logic-sim-flake/releases/download/${finalAttrs.version}/Digital-Logic-Sim-Linux.zip";
-    hash = "sha256-vYr3JUGJQVSYY3Hoa6EqqagJ7tZB56A74fEjVStnB2Q=";
+    inherit url hash;
     stripRoot = true;
   };
-
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
