@@ -1,14 +1,27 @@
 # Digital Logic Sim on Nix ❄️
 
-This flake and the override package try to simplify the execution of the https://github.com/SebLague/Digital-Logic-Sim project (A minimalistic digital logic simulator) on Nix.
+A reproducible Nix flake to run Sebastian Lague’s [Digital Logic Simulator](https://github.com/SebLague/Digital-Logic-Sim) on NixOS or any Linux with Nix installed.
 
-This project has no releases on github or any other platform that we can easily fetch, instead SebLague uses ItchiIO https://sebastian.itch.io/digital-logic-sim, for this I downloaded the linux build from itch.io and uploaded it to this project as a release. But you can do the same by copying my ./package.nix and replacing it wherever you have the zip file found on [here](https://sebastian.itch.io/digital-logic-sim/download/eyJleHBpcmVzIjoxNzQ3NjU5NzY5LCJpZCI6MzQ1NjMxOH0%3d%2eVF8YkFNrB7IOVfkR1ZS1k%2bA3xZw%3d).
+> Status: working • x86_64‑linux • tested on NixOS unstable (Wayland & X11)
 
-> This project is made on Unity so if you have the Unity Editor you can build the project by yourself. 
+## Why does this flake exist?
 
-> I'm not responsible for the code that is executed since the project, even though it is open-source, is uploaded to an external platform which the owner uses.
+The project distributes pre‑built binaries on [itch.io](https://sebastian.itch.io/digital-logic-sim) there are no versioned GitHub releases. This flake snapshots that Linux ZIP in a GitHub release so you can install the simulator with a single nix run and creates an override so you can install it on your system.
 
-> This flake for now provides artifacts (the zip) I encourage you to change to your personal download from the ItchiIO page.
+If you prefer, replace the bundled archive with one you downloaded yourself just copy ./package.nix and point src = to your file.
+
+
+## Features
+
+Two variants
+
+- `packages.<system>.default` – upstream vanilla build.
+
+- `packages.<system>.fork16bit` – community fork that merges [16‑bit I/O](https://github.com/parshwa282011/Digital-Logic-Sim) and [Port I/O](https://github.com/squigglesdev/Digital-Logic-Sim) support thanks to parshwa282011, squigglesdev and [alice39](https://github.com/alice39/Digital-Logic-Sim).
+
+- `nix run` friendly – run the simulator without touching your profile.
+
+
 
 ## 🖌️ Screenshoot 
 
@@ -16,34 +29,39 @@ This project has no releases on github or any other platform that we can easily 
 
 (Running on x86 NixOs Unstable machine using Wayland)
 
-## 🖥️ Installation 
 
-To use it add the input to the relevant Nix configuration flake inputs:
+## Quick start
+
+1 . Add the input
 
 ```nix
-inputs = {
-    digital-logic-sim.url = "github:regalk13/digital-logic-sim-flake";
+{
+  inputs.digital-logic-sim.url = "github:regalk13/digital-logic-sim-flake";
 }
 ```
 
-This flake just provides the package from the main repository that is `x86_64-linux` for now.
-
-If you're on NixOS and/or home-manager, you should install on your configuration. For example like this:
-
+2 . Install (NixOS / home‑manager)
 ```nix
 environment.systemPackages = [
-    inputs.digital-logic-sim.packages.x86_64-linux.default
+  # vanilla
+  inputs.digital-logic-sim.packages.${pkgs.system}.default
+
+  # or the extended fork
+  # inputs.digital-logic-sim.packages.${pkgs.system}.fork16bit
 ];
 ```
-A command called `digital-logic-sim` should appear, as well as a desktop file that should show up in app launchers.
+A binary called digital-logic-sim will be on your $PATH, and the app appears in your launcher.
 
-## 🚀 Run the Flake 
 
-You can run the app using the Flake:
-
+3 . Or run immediately
 ```bash
-nix run .
+nix run github:regalk13/digital-logic-sim-flake
 ```
+
+## Building the game yourself (optional)
+
+Have the Unity editor installed? Clone the original project, build a Linux export (il2cpp), then duplicate ./package.nix and set src = to your freshly built ZIP. Everything else in the flake stays the same.
+
 
 ### 📙 Resources 
 
@@ -52,3 +70,8 @@ This override is based on existing overrides in the nixpkgs of Unity apps/games.
 - [Clone Hero](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/cl/clonehero/package.nix)
 
 - [Yarg](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/ya/yarg/package.nix)
+
+
+### Contributing
+
+Found a bug? PRs and issues are welcome!
